@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 742 336" width="742" height="336">
+  <defs>
+    <linearGradient id="trainRoof" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1F3A" />
+      <stop offset="100%" stop-color="#1A365D" />
+    </linearGradient>
+    <linearGradient id="speedLine1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5821F" stop-opacity="0" />
+      <stop offset="100%" stop-color="#E31E24" />
+    </linearGradient>
+  </defs>
+
+  <!-- Speed / Motion Streak Lines (Left trailing) -->
+  <g opacity="0.95">
+    <path d="M 340 92 L 530 52 L 520 57 L 340 95 Z" fill="url(#speedLine1)" />
+    <path d="M 370 78 L 560 38 L 550 43 L 370 81 Z" fill="#E31E24" />
+    <path d="M 410 65 L 590 28 L 580 32 L 410 68 Z" fill="#F5821F" />
+    <path d="M 390 85 L 510 60 L 500 64 L 390 88 Z" fill="#E31E24" />
+    <path d="M 430 75 L 540 50 L 535 53 L 430 77 Z" fill="#F5821F" />
+  </g>
+
+  <!-- Bullet / High-Speed Train Body -->
+  <g transform="translate(0, 0)">
+    <!-- Main Train Nose & Shell -->
+    <path d="M 460 102 C 550 96 610 90 635 80 C 650 74 658 60 655 45 C 650 34 635 30 600 34 C 540 40 450 60 350 85 C 345 86 342 90 345 95 C 347 100 352 103 360 102 Z" fill="#FFFFFF" stroke="#0B1F3A" stroke-width="4" />
+    <path d="M 648 48 C 652 58 645 70 632 75 C 610 84 550 92 460 98 L 460 104 C 555 98 615 90 638 80 C 654 73 662 58 658 45 Z" fill="#0B1F3A" />
+    
+    <!-- Red Racing Stripe -->
+    <path d="M 355 94 C 440 73 530 56 605 47 C 625 45 640 48 646 54 C 640 58 625 61 602 65 C 528 74 440 89 355 101 Z" fill="#E31E24" />
+    
+    <!-- Windows -->
+    <g fill="#0B1F3A">
+      <path d="M 605 52 C 618 50 630 54 635 60 C 628 63 615 62 603 62 Z" />
+      <rect x="575" y="56" width="22" height="11" rx="2" transform="rotate(-6 575 56)" />
+      <rect x="545" y="60" width="22" height="11" rx="2" transform="rotate(-6 545 60)" />
+      <rect x="515" y="64" width="22" height="11" rx="2" transform="rotate(-6 515 64)" />
+      <rect x="485" y="68" width="22" height="11" rx="2" transform="rotate(-6 485 68)" />
+      <rect x="455" y="72" width="22" height="11" rx="2" transform="rotate(-6 455 72)" />
+    </g>
+
+    <!-- Windshield Nose Highlight -->
+    <path d="M 622 46 C 638 45 646 52 642 62 C 635 66 620 62 615 56 Z" fill="#0B1F3A" />
+    <path d="M 628 48 C 636 47 640 52 638 58 C 632 60 623 58 620 54 Z" fill="#60A5FA" opacity="0.6" />
+  </g>
+
+  <!-- Horizontal Loop Line / Train Track Bar -->
+  <path d="M 100 114 L 640 114 C 660 114 672 124 672 138 C 672 152 660 162 640 162 L 560 162" fill="none" stroke="#0B1F3A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- "आagman" Wordmark -->
+  <!-- Main Devanagari "आ" Calligraphic Swash & Letters -->
+  <g fill="#0B1F3A">
+    <!-- Letter "आ" / Main Loop Body -->
+    <path d="M 100 114 L 640 114 C 652 114 660 122 660 138 C 660 152 650 154 635 154 L 575 154 C 565 154 560 150 560 144 C 560 136 568 130 580 130 L 635 130 C 642 130 646 126 646 122 C 646 118 640 116 630 116 L 100 116 Z" />
+    
+    <!-- Wordmark Text rendering styled calligraphic font -->
+    <text x="90" y="215" font-family="'Inter', 'Segoe UI', sans-serif" font-weight="900" font-size="118" letter-spacing="-3" fill="#0B1F3A">आgman</text>
+  </g>
+
+  <!-- Tagline: PREDICTING ARRIVALS, BETTER. -->
+  <g transform="translate(340, 255)">
+    <!-- Left Orange Dash -->
+    <path d="M 0 0 L 22 0 L 18 3 L 0 0 Z" fill="#F5821F" />
+    
+    <!-- Tagline Text -->
+    <text x="32" y="4" font-family="'Inter', sans-serif" font-weight="800" font-size="16" letter-spacing="2.5" fill="#0B1F3A">
+      PREDICTING ARRIVALS, <tspan fill="#E31E24">BETTER.</tspan>
+    </text>
+
+    <!-- Right Orange Dash -->
+    <path d="M 305 0 L 327 0 L 327 3 L 309 3 Z" fill="#F5821F" />
+  </g>
+</svg>

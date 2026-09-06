@@ -1,0 +1,616 @@
+/* Live Train Status CSS */
+
+.train-status-page {
+  background-color: #F1F5F9;
+  min-height: 100vh;
+  padding: 16px 16px 32px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.status-card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Card 1: Search */
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.badge-active-gps {
+  background-color: #D1FAE5;
+  color: #065F46;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: 0.5px;
+}
+
+.gps-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #10B981;
+  border-radius: 50%;
+}
+
+.card-subtext {
+  color: #64748B;
+  font-size: 13px;
+  margin: 0 0 14px 0;
+  line-height: 1.4;
+}
+
+.search-form-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-icon {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  stroke: #94A3B8;
+  stroke-width: 2;
+  fill: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  color: #0F172A;
+  background-color: #FFFFFF;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #2563EB;
+}
+
+.search-button {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  padding: 0 18px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.search-button:hover {
+  background-color: #1D4ED8;
+}
+
+.search-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.example-text {
+  color: #64748B;
+}
+
+.example-link {
+  color: #334155;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.recent-link {
+  color: #2563EB;
+  font-weight: 700;
+}
+
+/* Card 2: Train Summary */
+.badge-superfast {
+  background-color: #334155;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.route-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.route-arrow {
+  width: 14px;
+  height: 14px;
+  stroke: #475569;
+  stroke-width: 2;
+  fill: none;
+}
+
+.status-banner {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.banner-main-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #065F46;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.banner-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10B981;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.banner-subtext {
+  color: #059669;
+  font-size: 11px;
+  margin-top: 4px;
+  margin-left: 16px;
+}
+
+.mini-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mini-stat-card {
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.mini-stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.mini-stat-value {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.stat-status {
+  background-color: #F8FAFC;
+}
+.stat-status .mini-stat-label { color: #64748B; }
+.stat-status .mini-stat-value { color: #16A34A; }
+
+.stat-delay {
+  background-color: #FFF6F6;
+}
+.stat-delay .mini-stat-label { color: #F87171; }
+.stat-delay .mini-stat-value { color: #DC2626; }
+
+.stat-confidence {
+  background-color: #F4F9FF;
+}
+.stat-confidence .mini-stat-label { color: #3B82F6; }
+.stat-confidence .mini-stat-value { color: #0F172A; }
+
+/* Card 3: Live Station Progression */
+.section-header-uppercase {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 0.5px;
+}
+
+.distance-text {
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.timeline-container {
+  margin-top: 16px;
+  position: relative;
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 48px 24px 1fr auto;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.timeline-row:last-child {
+  padding-bottom: 0;
+}
+
+.sched-col {
+  text-align: right;
+  padding-right: 8px;
+}
+
+.sched-time {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.2;
+}
+
+.sched-label {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+.track-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.track-line {
+  position: absolute;
+  top: 18px;
+  bottom: -16px;
+  width: 2px;
+  background-color: #CBD5E1;
+  z-index: 1;
+}
+
+.timeline-row:last-child .track-line {
+  display: none;
+}
+
+.track-icon {
+  z-index: 2;
+  background-color: #FFFFFF;
+}
+
+.station-info-col {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.station-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.2;
+}
+
+.station-historical {
+  font-size: 11px;
+  font-style: italic;
+  color: #94A3B8;
+  margin-top: 3px;
+}
+
+.actual-col {
+  text-align: right;
+}
+
+.actual-time {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.2;
+}
+
+.actual-time.delayed {
+  color: #DC2626;
+}
+
+.status-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-top: 4px;
+}
+
+.pill-ontime {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+.pill-delayed {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+.final-dest-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2563EB;
+  margin-top: 4px;
+}
+
+/* Inline Highlight Box for Live Position */
+.live-position-box {
+  background-color: #0C2646;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 4px 0 16px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.live-train-square {
+  background-color: #1E3A8A;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.live-position-content {
+  flex: 1;
+}
+
+.live-position-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.pill-weather-delay {
+  background-color: #DC2626;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.live-position-title {
+  color: #93C5FD;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.live-position-text {
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+/* Timeline Legend */
+.timeline-legend {
+  border-top: 1px solid #F1F5F9;
+  margin-top: 16px;
+  padding-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  font-size: 12px;
+  color: #64748B;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Card 4: Delay Insights */
+.total-delay-pill {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.delay-rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.delay-item-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.delay-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.delay-item-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.delay-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.delay-item-stats {
+  color: #64748B;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #F1F5F9;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Card 5: Prediction Insights */
+.prediction-summary-box {
+  background-color: #F8FAFC;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  margin-bottom: 14px;
+}
+
+.pred-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.pred-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.pred-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.pred-val.red { color: #DC2626; }
+.pred-val.orange { color: #EA580C; }
+
+.variance-trend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.trend-label {
+  color: #334155;
+}
+
+.trend-val {
+  color: #64748B;
+  font-style: italic;
+}
+
+.segmented-pill {
+  display: flex;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.segment {
+  flex: 1;
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.segment-min {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+.segment-median {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.segment-max {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+
+.action-btn-link {
+  background-color: #EFF6FF;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  color: #2563EB;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-btn-link:hover {
+  background-color: #DBEAFE;
+}

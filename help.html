@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help & Support - Aagman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Color Palette */
+      --color-navy: #0F172A;
+      --color-navy-dark: #0B1F3A;
+      --color-blue: #2563EB;
+      --color-blue-light: #DBEAFE;
+      --color-blue-lightest: #EFF6FF;
+      --color-green: #16A34A;
+      --color-green-light: #DCFCE7;
+      --color-red: #DC2626;
+      --color-red-light: #FEE2E2;
+      --color-yellow: #F59E0B;
+      --color-yellow-light: #FEF3C7;
+      --color-pink-light: #FCE7F3;
+      
+      --text-main: #0F172A;
+      --text-body: #4B5563;
+      --text-muted: #9CA3AF;
+      
+      --bg-white: #FFFFFF;
+      --bg-gray: #F8F9FB;
+      --border-color: #E5E7EB;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text-body); background-color: var(--bg-white); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    /* Layout Helpers */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .section-padding { padding: 80px 0; }
+    .text-center { text-align: center; }
+
+    /* Typography */
+    h1, h2, h3, h4, .text-main { color: var(--text-main); font-weight: 700; }
+    .label-uppercase { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .section-title { font-size: 32px; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .section-subtitle { font-size: 16px; color: var(--text-body); max-width: 600px; margin: 0 auto 48px auto; }
+
+    /* Navbar */
+    .navbar { position: sticky; top: 0; background: var(--bg-white); border-bottom: 1px solid var(--border-color); height: 116px; z-index: 100; display: flex; align-items: center; }
+    .navbar .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .navbar .brand-logo { height: 96px; width: auto; object-fit: contain; margin-right: 40px; display: block; }
+    
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-link { font-weight: 500; color: var(--text-muted); position: relative; padding: 8px 0; }
+    .nav-link.active { color: var(--color-blue); font-weight: 600; }
+    .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--color-blue); }
+    .nav-link:hover:not(.active) { color: var(--color-blue); }
+
+    .btn-primary { background: var(--color-blue); color: var(--bg-white); padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 14px; transition: background 0.2s; }
+    .btn-primary:hover { background: #1D4ED8; } /* darker blue */
+
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--color-navy); cursor: pointer; padding: 8px; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--bg-white); position: absolute; top: 96px; left: 0; width: 100%; border-bottom: 1px solid var(--border-color); padding: 16px 32px; box-shadow: var(--shadow-md); z-index: 99; }
+    .mobile-menu.open { display: flex; gap: 16px; }
+
+    /* 1. Hero Search Section */
+    .hero-search { background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); text-align: center; }
+    .hero-pill { display: inline-block; background: var(--color-blue-light); color: var(--color-blue); padding: 6px 16px; border-radius: var(--radius-full); margin-bottom: 24px; }
+    .hero-title { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero-subtitle { font-size: 18px; color: var(--text-body); max-width: 600px; margin: 0 auto 40px auto; }
+    
+    .search-box { display: flex; align-items: center; background: var(--bg-white); border-radius: var(--radius-full); padding: 8px; padding-left: 20px; box-shadow: var(--shadow-md); max-width: 600px; margin: 0 auto; border: 1px solid var(--border-color); }
+    .search-input { border: none; outline: none; flex-grow: 1; font-size: 16px; margin-left: 12px; }
+    
+    /* 2. Topic Cards */
+    .topic-cards { background: var(--bg-white); }
+    .topic-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .topic-card { padding: 24px; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); text-align: left; transition: box-shadow 0.2s; }
+    .topic-card:hover { box-shadow: var(--shadow-md); }
+    .t-icon-box { width: 48px; height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .t-icon-blue { background: var(--color-blue-light); color: var(--color-blue); }
+    .t-icon-green { background: var(--color-green-light); color: var(--color-green); }
+    .t-icon-yellow { background: var(--color-yellow-light); color: var(--color-yellow); }
+    .t-icon-pink { background: var(--color-pink-light); color: #DB2777; }
+    .topic-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+    .topic-desc { font-size: 14px; color: var(--text-body); }
+
+    /* 3. Understanding Live Status */
+    .live-status { background: var(--bg-white); }
+    .ls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; align-items: flex-start; }
+    .ls-card { border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; background: var(--bg-white); }
+    .ls-card-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+    
+    .ls-legend-item { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid transparent; }
+    .ls-legend-item:last-child { margin-bottom: 0; }
+    .ls-legend-item.dark { background: var(--color-navy); color: var(--bg-white); }
+    .ls-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .ls-dot.green { background: var(--color-green); }
+    .ls-dot.blue { background: var(--color-blue); }
+    .ls-dot.gray { border: 2px solid var(--text-muted); background: transparent; }
+    .ls-dot.red { background: var(--color-red); }
+    .ls-text-group { display: flex; flex-direction: column; }
+    .ls-item-title { font-size: 14px; font-weight: 700; }
+    .ls-item-desc { font-size: 13px; color: var(--text-muted); }
+    .ls-legend-item.dark .ls-item-title { color: var(--bg-white); }
+    .ls-legend-item.dark .ls-item-desc { color: #94A3B8; }
+
+    /* Station Architecture Example */
+    .arch-example { border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+    .arch-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .arch-left { display: flex; align-items: center; gap: 12px; }
+    .arch-time { font-size: 14px; font-weight: 500; }
+    .arch-station-info { display: flex; flex-direction: column; }
+    .arch-station-name { font-weight: 700; font-size: 15px; color: var(--text-main); }
+    .arch-station-sub { font-size: 12px; color: var(--text-muted); }
+    .arch-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .arch-eta { font-size: 14px; font-weight: 700; }
+    .arch-status { background: var(--color-green-light); color: var(--color-green); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: var(--radius-full); }
+    
+    .annotation-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 32px; border-top: 1px dashed var(--border-color); padding-top: 24px; }
+    .anno-item { display: flex; flex-direction: column; gap: 4px; font-size: 11px; }
+    .anno-val { font-weight: 700; font-size: 12px; color: var(--text-main); display: inline-block; padding: 4px 6px; border-radius: 4px; }
+    .anno-bg-yellow { background: var(--color-yellow-light); }
+    .anno-bg-green { background: var(--color-green-light); }
+    .anno-arrow { color: var(--text-muted); font-size: 14px; }
+    .anno-label { color: var(--text-muted); }
+    .ls-footnote { font-size: 11px; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+
+    /* 4. Prediction Pipeline */
+    .pipeline { background: var(--bg-white); }
+    .pipeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+    .pipe-card { border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; background: var(--bg-white); display: flex; flex-direction: column; position: relative; }
+    .pipe-badge { position: absolute; top: 24px; left: 24px; background: var(--color-blue); color: var(--bg-white); width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .pipe-icon { position: absolute; top: 24px; right: 24px; color: var(--text-muted); font-size: 20px; }
+    .pipe-title { font-weight: 700; font-size: 16px; margin-top: 40px; margin-bottom: 8px; color: var(--text-main); }
+    .pipe-desc { font-size: 13px; color: var(--text-body); flex-grow: 1; }
+    
+    .pipe-card.dark { background: var(--color-navy); color: var(--bg-white); border-color: var(--color-navy); }
+    .pipe-card.dark .pipe-title { color: var(--bg-white); }
+    .pipe-card.dark .pipe-desc { color: #94A3B8; }
+    
+    .pipe-card.green { background: var(--color-green); color: var(--bg-white); border-color: var(--color-green); }
+    .pipe-card.green .pipe-title { color: var(--bg-white); }
+    .pipe-card.green .pipe-desc { color: #BBF7D0; }
+
+    /* 5. FAQ */
+    .faq { background: var(--bg-white); }
+    .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .faq-item { border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-white); overflow: hidden; }
+    .faq-header { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+    .faq-title { font-weight: 700; font-size: 16px; color: var(--text-main); }
+    .faq-icon { transition: transform 0.3s; color: var(--text-muted); font-size: 20px; }
+    .faq-content { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; font-size: 15px; color: var(--text-body); line-height: 1.6; }
+    
+    .faq-item.active .faq-icon { transform: rotate(180deg); }
+    .faq-item.active .faq-content { padding: 0 24px 24px 24px; max-height: 500px; }
+
+    /* 6. Form Section */
+    .contact-form { 
+      background-color: var(--bg-gray); 
+      background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .form-card { max-width: 700px; margin: 0 auto; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 48px; box-shadow: var(--shadow-lg); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 12px; font-weight: 700; color: var(--text-main); letter-spacing: 0.05em; }
+    .form-input, .form-textarea { padding: 12px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--color-blue); }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .form-submit { width: 100%; margin-top: 16px; padding: 16px; font-size: 16px; border-radius: var(--radius-md); }
+    
+    .form-success { display: none; padding: 16px; background: var(--color-green-light); color: var(--color-green); border-radius: var(--radius-sm); font-weight: 500; margin-bottom: 24px; text-align: center; }
+
+    /* Stacking Scroll Effect */
+    @media (min-width: 768px) {
+      .stack-section {
+        position: sticky;
+        top: 96px; /* Below navbar */
+        height: calc(100vh - 96px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        transform-origin: center top;
+        will-change: transform, opacity;
+      }
+      .stack-section-1 { z-index: 10; }
+      .stack-section-2 { z-index: 20; }
+      .stack-section-3 { z-index: 30; }
+      .footer { position: relative; z-index: 40; }
+    }
+
+    /* Footer */
+    .footer { padding: 64px 0 32px 0; background: var(--bg-white); border-top: 1px solid var(--border-color); }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
+    .f-logo { height: 96px; width: auto; object-fit: contain; margin-bottom: 16px; display: block; margin-right: 0; }
+    .f-desc { font-size: 14px; color: var(--text-muted); max-width: 250px; }
+    .f-nav { display: flex; gap: 24px; }
+    .f-nav a { color: var(--text-body); font-weight: 500; font-size: 14px; }
+    .f-legal { display: flex; gap: 16px; font-size: 14px; color: var(--text-muted); }
+    .footer-divider { height: 1px; background: var(--border-color); margin-bottom: 32px; }
+    .footer-bottom { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-muted); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .topic-grid { grid-template-columns: repeat(2, 1fr); }
+      .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
+      .ls-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { height: 88px; }
+      .navbar .brand-logo { height: 64px; width: auto; margin-right: 24px; }
+      .section-padding { padding: 48px 0; }
+      .nav-links, .nav-right .btn-primary { display: none; }
+      .mobile-menu-btn { display: block; }
+      
+      .hero-title { font-size: 36px; }
+      .form-row { grid-template-columns: 1fr; gap: 16px; }
+      
+      .footer-top { flex-direction: column; gap: 32px; }
+      .f-nav { flex-direction: column; gap: 16px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .topic-grid { grid-template-columns: 1fr; }
+      .pipeline-grid { grid-template-columns: 1fr; }
+      .annotation-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-card { padding: 24px; }
+    }
+    /* Splash Screen */
+    .splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #0F172A; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s ease; padding: 0 24px; box-sizing: border-box; }
+    .splash-logo-container { background-color: #FFFFFF; padding: clamp(24px, 4vw, 40px) clamp(32px, 5vw, 48px); border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 3vw, 32px); transition: transform 0.4s ease; max-width: 100%; box-sizing: border-box; }
+    .splash-logo { width: clamp(220px, 40vw, 420px); height: auto; object-fit: contain; }
+    .splash-loader { width: clamp(48px, 10vw, 80px); height: clamp(4px, 0.8vw, 6px); background: #E2E8F0; border-radius: 3px; overflow: hidden; position: relative; }
+    .splash-loader::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 50%; background: #2563EB; border-radius: 3px; animation: splash-loading 1s ease-in-out infinite alternate; }
+    @keyframes splash-loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+  </style>
+</head>
+<body>
+
+  <!-- Splash Screen -->
+  <div id="aagman-splash" class="splash-screen" aria-hidden="true">
+    <div class="splash-logo-container">
+      <img src="/logo.jpg" alt="Aagman Logo" class="splash-logo">
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var navEntry = performance.getEntriesByType("navigation")[0];
+      var isReload = navEntry && navEntry.type === "reload";
+      if (sessionStorage.getItem('aagmanSplashShown') && !isReload) {
+        document.getElementById('aagman-splash').style.display = 'none';
+      }
+    })();
+  </script>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="home.html">
+        <img src="/logo.jpg" alt="Aagman Logo" class="brand-logo">
+      </a>
+      <div class="nav-links">
+        <a href="home.html" class="nav-link">Home</a>
+        <a href="livestatus.html" class="nav-link">Live Status</a>
+        <a href="help.html" class="nav-link active">Help</a>
+      </div>
+      <div class="nav-right" style="display: flex; align-items: center; gap: 16px;">
+        <button class="btn-primary">Search Train</button>
+        <button class="mobile-menu-btn" id="menuBtn">☰</button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="livestatus.html" class="nav-link">Live Status</a>
+      <a href="help.html" class="nav-link active">Help</a>
+      <button class="btn-primary" style="margin-top: 12px; text-align: center;">Search Train</button>
+    </div>
+  </nav>
+
+  <!-- 1. Hero Search -->
+  <section class="hero-search section-padding">
+    <div class="container">
+      <div class="hero-pill label-uppercase">Knowledge Base & Support</div>
+      <h1 class="hero-title">How can we help?</h1>
+      <p class="hero-subtitle">Learn how Aagman tracks trains, predicts ETA and helps you understand delays.</p>
+      
+      <div class="search-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" class="search-input" placeholder="Search help articles, delay guides, or prediction FAQ...">
+        <button class="btn-primary">Search Help</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Splash Screen Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const splash = document.getElementById("aagman-splash");
+      const logoContainer = splash.querySelector('.splash-logo-container');
+      if (!splash || splash.style.display === 'none') return;
+      
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        splash.style.opacity = '0';
+        logoContainer.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+          splash.style.display = 'none';
+          document.body.style.overflow = '';
+          sessionStorage.setItem('aagmanSplashShown', 'true');
+        }, 400); 
+      }, 2500); 
+    });
+  </script>
+
+  <!-- 2. Topic Cards Row -->
+  <section class="topic-cards section-padding">
+    <div class="container">
+      <div class="topic-grid">
+        <div class="topic-card">
+          <div class="t-icon-box t-icon-blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+          </div>
+          <h3 class="topic-title">Live Train Status</h3>
+          <p class="topic-desc">Learn how to read the live train tracking screen and telemetry updates.</p>
+        </div>
+        <div class="topic-card">
+          <div class="t-icon-box t-icon-green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3 class="topic-title">ETA Predictions</h3>
+          <p class="topic-desc">Understand scheduled vs predicted arrival times and algorithmic confidence.</p>
+        </div>
+        <div class="topic-card">
+          <div class="t-icon-box t-icon-yellow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <h3 class="topic-title">Delays & Attribution</h3>
+          <p class="topic-desc">Learn what different delay statuses and contributing factors mean.</p>
+        </div>
+        <div class="topic-card">
+          <div class="t-icon-box t-icon-pink">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4z"></path><path d="M4 14a8 8 0 0 1 16 0"></path><path d="M12 22v-8"></path></svg>
+          </div>
+          <h3 class="topic-title">How Aagman Works</h3>
+          <p class="topic-desc">Understand how our machine learning models process live rail telemetry.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Understanding Live Status -->
+  <section class="live-status section-padding text-center">
+    <div class="container">
+      <h2 class="section-title">Understanding Live Status</h2>
+      <p class="section-subtitle">A visual guide to symbols, color codes, and timeline data.</p>
+      
+      <div class="ls-grid text-left" style="text-align: left;">
+        
+        <!-- Left Column -->
+        <div class="ls-card">
+          <div class="ls-card-title">Timeline Legend & Status</div>
+          <div class="ls-legend-item">
+            <div class="ls-dot green"></div>
+            <div class="ls-text-group">
+              <span class="ls-item-title">GREEN INDICATOR</span>
+              <span class="ls-item-desc">Passed / On time</span>
+            </div>
+          </div>
+          <div class="ls-legend-item">
+            <div class="ls-dot blue"></div>
+            <div class="ls-text-group">
+              <span class="ls-item-title">BLUE INDICATOR</span>
+              <span class="ls-item-desc">Upcoming station</span>
+            </div>
+          </div>
+          <div class="ls-legend-item">
+            <div class="ls-dot gray"></div>
+            <div class="ls-text-group">
+              <span class="ls-item-title">GRAY INDICATOR</span>
+              <span class="ls-item-desc">Yet to arrive</span>
+            </div>
+          </div>
+          <div class="ls-legend-item">
+            <div class="ls-dot red"></div>
+            <div class="ls-text-group">
+              <span class="ls-item-title">RED INDICATOR</span>
+              <span class="ls-item-desc">Delayed station</span>
+            </div>
+          </div>
+          <div class="ls-legend-item dark">
+            <div class="ls-dot" style="display: flex; align-items: center; justify-content: center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-blue-light);"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><circle cx="12" cy="10" r="2"></circle><line x1="12" y1="16" x2="12" y2="16"></line></svg>
+            </div>
+            <div class="ls-text-group" style="margin-left: 12px;">
+              <span class="ls-item-title">TRAIN BEACON</span>
+              <span class="ls-item-desc">Current live position</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="ls-card">
+          <div class="ls-card-title">
+            <span>Station Row Architecture</span>
+            <span class="hero-pill" style="margin:0; padding: 4px 10px; font-size: 10px;">Interactive Reference</span>
+          </div>
+          
+          <div class="arch-example">
+            <div class="arch-row">
+              <div class="arch-left">
+                <span class="arch-time">14:32</span>
+                <div class="ls-dot green"></div>
+                <div class="arch-station-info">
+                  <span class="arch-station-name">Kota Junction</span>
+                  <span class="arch-station-sub">Historical avg: 3 min late</span>
+                </div>
+              </div>
+              <div class="arch-right">
+                <span class="arch-eta">14:32</span>
+                <span class="arch-status">On time</span>
+              </div>
+            </div>
+            
+            <div class="annotation-grid">
+              <div class="anno-item">
+                <span class="anno-val">14:32</span>
+                <span class="anno-arrow">↑</span>
+                <span class="anno-label">Scheduled time</span>
+              </div>
+              <div class="anno-item">
+                <span class="anno-val">Kota Junction</span>
+                <span class="anno-arrow">↑</span>
+                <span class="anno-label">Station name</span>
+              </div>
+              <div class="anno-item">
+                <span class="anno-val anno-bg-yellow">Hist: 3 min</span>
+                <span class="anno-arrow">↑</span>
+                <span class="anno-label">Delay benchmark</span>
+              </div>
+              <div class="anno-item">
+                <span class="anno-val">14:32</span>
+                <span class="anno-arrow">↑</span>
+                <span class="anno-label">Predicted ETA</span>
+              </div>
+              <div class="anno-item">
+                <span class="anno-val anno-bg-green">On time</span>
+                <span class="anno-arrow">↑</span>
+                <span class="anno-label">Delay verdict</span>
+              </div>
+            </div>
+          </div>
+          
+          <p class="ls-footnote">* Note: Timestamps reflect Indian Standard Time (IST). The delay verdict reflects real-time recalculations based on network section signaling and speed restrictions.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Pipeline -->
+  <section class="pipeline section-padding text-center stack-section stack-section-1">
+    <div class="container">
+      <div class="label-uppercase" style="color: var(--color-blue); margin-bottom: 12px;">Pipeline Overview</div>
+      <h2 class="section-title">How our prediction works</h2>
+      <p class="section-subtitle">From raw track telemetry to dynamic precision arrival estimates.</p>
+      
+      <div class="pipeline-grid text-left" style="text-align: left;">
+        
+        <div class="pipe-card">
+          <div class="pipe-badge">1</div>
+          <div class="pipe-icon">📊</div>
+          <h3 class="pipe-title">Historical Train Data</h3>
+          <p class="pipe-desc">Learns seasonal & track bottleneck trends across previous seasonal runs.</p>
+        </div>
+        <div class="pipe-card">
+          <div class="pipe-badge">2</div>
+          <div class="pipe-icon">🛰️</div>
+          <h3 class="pipe-title">Live Train Position</h3>
+          <p class="pipe-desc">High-frequency GPS & mast pings reported every 30 to 60 seconds.</p>
+        </div>
+        <div class="pipe-card">
+          <div class="pipe-badge">3</div>
+          <div class="pipe-icon">☁️</div>
+          <h3 class="pipe-title">Weather Conditions</h3>
+          <p class="pipe-desc">Aggregates regional fog, monsoon rainfall, and track visibility metrics.</p>
+        </div>
+        <div class="pipe-card">
+          <div class="pipe-badge">4</div>
+          <div class="pipe-icon">🚦</div>
+          <h3 class="pipe-title">Signal Conditions</h3>
+          <p class="pipe-desc">Monitors automatic railway signaling blocks and station clearance states.</p>
+        </div>
+        <div class="pipe-card">
+          <div class="pipe-badge">5</div>
+          <div class="pipe-icon">⚡</div>
+          <h3 class="pipe-title">Train Speed</h3>
+          <p class="pipe-desc">Tracks instantaneous throttle, gradients, and locomotive velocity.</p>
+        </div>
+        <div class="pipe-card">
+          <div class="pipe-badge">6</div>
+          <div class="pipe-icon">🛤️</div>
+          <h3 class="pipe-title">Network Congestion</h3>
+          <p class="pipe-desc">Computes density and headway gaps of preceding passenger & freight rail traffic.</p>
+        </div>
+        <div class="pipe-card dark">
+          <div class="pipe-badge">7</div>
+          <div class="pipe-icon">🧠</div>
+          <h3 class="pipe-title">AI Prediction Model</h3>
+          <p class="pipe-desc">Multi-variable recurrent neural engine synthesizes real-time and historical curves.</p>
+        </div>
+        <div class="pipe-card green">
+          <div class="pipe-badge">8</div>
+          <div class="pipe-icon" style="color: white;">🎯</div>
+          <h3 class="pipe-title">Predicted ETA</h3>
+          <p class="pipe-desc">Dynamic passenger-ready arrival forecast updated station by station.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FAQ -->
+  <section class="faq section-padding text-center stack-section stack-section-2">
+    <div class="container">
+      <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-subtitle">Everything you need to know about our railway tracking engine.</p>
+      
+      <div class="faq-list text-left" style="text-align: left;">
+        
+        <div class="faq-item active">
+          <div class="faq-header">
+            <span class="faq-title">How does Aagman predict train ETA?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-content">
+            Aagman combines historical transit curves across thousands of journeys with real-time GPS coordinates, station clearance reports, weather sensor telemetry, and dynamic section headway constraints to forecast arrival times with over 96% accuracy.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <span class="faq-title">How often is train position updated?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-content">
+            Train positions are updated every 30 to 60 seconds using live GPS beacons and network telemetry, ensuring the delay verdict reflects real-time realities.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <span class="faq-title">What does "Delayed 12 min" mean?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-content">
+            This indicates that based on current speed and network traffic, the train is projected to arrive at the next station 12 minutes later than its officially scheduled time.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <span class="faq-title">Why can the predicted ETA change?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-content">
+            Predictions are dynamic. If a train makes up time by running at higher speeds on a clear track section, or encounters unexpected congestion, the ETA will instantly recalculate.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <span class="faq-title">What do the different colors and status indicators mean?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-content">
+            Green means on time, Red means delayed, Blue indicates the immediate upcoming station, and Gray shows stations further down the route. The dark navy beacon shows exact current position.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <span class="faq-title">How accurate are the predictions?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-content">
+            Our machine learning models are continuously trained on live data, achieving an accuracy rate of 96% for predictions made within 3 hours of arrival.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Form -->
+  <section class="contact-form section-padding text-center stack-section stack-section-3">
+    <div class="container">
+      <div class="form-card text-left" style="text-align: left;">
+        <h2 class="section-title text-center" style="text-align: center;">Still need help?</h2>
+        <p class="section-subtitle text-center" style="text-align: center; margin-bottom: 32px;">Can't find what you're looking for? Send us your question.</p>
+        
+        <div class="form-success" id="formSuccess">
+          Thank you! Your message has been sent successfully. We will get back to you soon.
+        </div>
+
+        <form id="helpForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="name">NAME</label>
+              <input type="text" id="name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">EMAIL</label>
+              <input type="email" id="email" class="form-input" placeholder="e.g. rahul@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="question">YOUR QUESTION</label>
+            <textarea id="question" class="form-textarea" placeholder="Describe your query or feedback..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="#"><img src="/logo.jpg" alt="Aagman Logo" class="brand-logo f-logo"></a>
+          <p class="f-desc">Real-time insights. Smoother journeys. A more connected India.</p>
+        </div>
+        <div class="f-nav">
+          <a href="home.html">Home</a>
+          <a href="livestatus.html">Live Status</a>
+          <a href="help.html">Help</a>
+        </div>
+        <div class="f-legal">
+          <a href="#">Privacy</a> • <a href="#">Terms</a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <div>© 2026 Aagman Railway ETA Systems. All rights reserved.</div>
+        <div>Built for Indian Railways passengers with precision intelligence.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      menuBtn.innerHTML = mobileMenu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Accordion Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const header = item.querySelector('.faq-header');
+      header.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        // Optional: close others
+        faqItems.forEach(i => i.classList.remove('active'));
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Form Validation Logic
+    const form = document.getElementById('helpForm');
+    const successMsg = document.getElementById('formSuccess');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (form.checkValidity()) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      }
+    });
+
+    // Stacking Scroll Effect
+    document.addEventListener("DOMContentLoaded", () => {
+      const stackSections = document.querySelectorAll('.stack-section');
+      const footer = document.querySelector('.footer');
+      const elementsToTrack = [...stackSections, footer];
+
+      window.addEventListener('scroll', () => {
+        if (window.innerWidth < 768) {
+          stackSections.forEach(sec => {
+            sec.style.transform = 'none';
+            sec.style.opacity = '1';
+          });
+          return;
+        }
+
+        stackSections.forEach((sec, index) => {
+          const nextEl = elementsToTrack[index + 1];
+          if (nextEl) {
+            const nextRect = nextEl.getBoundingClientRect();
+            const thisRect = sec.getBoundingClientRect();
+            
+            // Calculate how much the next element overlays this section
+            const overlap = thisRect.bottom - nextRect.top;
+            if (overlap > 0) {
+              const progress = Math.min(overlap / thisRect.height, 1);
+              const scale = 1 - (0.04 * progress);
+              const opacity = 1 - (0.15 * progress);
+              sec.style.transform = `scale(${scale})`;
+              sec.style.opacity = opacity.toFixed(3);
+            } else {
+              sec.style.transform = `scale(1)`;
+              sec.style.opacity = '1';
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
