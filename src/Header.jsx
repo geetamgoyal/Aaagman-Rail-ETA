@@ -20,17 +20,15 @@ const Header = () => {
     <header className={`aagman-header-wrapper ${scrolled ? 'scrolled' : ''}`}>
       <div className="aagman-brand-bar">
         {/* Brand Logo Asset */}
-        <img 
-          src="/logo.jpg" 
-          alt="Aagman logo" 
-          className="aagman-logo-img" 
-          style={{ height: '96px', width: 'auto', objectFit: 'contain', display: 'block', marginRight: '40px' }}
-        />
-
-        <div className="aagman-nav">
-          <a href="home.html">Home</a>
-          <a href="livestatus.html" className="active">Live Status</a>
-          <a href="help.html">Help</a>
+        <a href="/" className="nav-logo">
+          <div className="logo-wrapper">
+            <img src="/logo.jpg" alt="Aagman Logo" />
+          </div>
+        </a>
+        <div className="nav-links">
+          <a href="/" className="nav-link">Home</a>
+          <a href="livestatus.html" className="nav-link active">Live Status</a>
+          <a href="help.html" className="nav-link">Help</a>
         </div>
 
         <div className="aagman-actions">

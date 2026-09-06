@@ -2,13 +2,680 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=home.html">
-  <title>Aagman - Redirecting...</title>
-  <script>
-    window.location.href = "home.html";
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aagman - AI-Powered Train ETA Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Color Palette */
+      --color-navy: #0F172A;
+      --color-navy-dark: #0B1F3A;
+      --color-blue: #2563EB;
+      --color-blue-light: #DBEAFE;
+      --color-blue-lightest: #EFF6FF;
+      --color-green: #16A34A;
+      --color-green-light: #DCFCE7;
+      --color-red: #DC2626;
+      --color-red-light: #FEE2E2;
+      --color-yellow-light: #FEF3C7;
+      
+      --text-main: #0F172A;
+      --text-body: #4B5563;
+      --text-muted: #9CA3AF;
+      
+      --bg-white: #FFFFFF;
+      --bg-gray: #F8F9FB;
+      --border-color: #E5E7EB;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text-body); background-color: var(--bg-white); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    /* Layout Helpers */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .section-padding { padding: 80px 0; }
+    .text-center { text-align: center; }
+
+    /* Typography */
+    h1, h2, h3, h4, .text-main { color: var(--text-main); font-weight: 700; }
+    .label-uppercase { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Navbar */
+    .navbar { position: sticky; top: 0; background: var(--bg-white); border-bottom: 1px solid var(--border-color); height: 116px; z-index: 100; display: flex; align-items: center; }
+    .navbar .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .navbar .brand-logo { height: 96px; width: auto; object-fit: contain; margin-right: 40px; display: block; }
+    
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-link { font-weight: 500; color: var(--text-body); position: relative; padding: 8px 0; }
+    .nav-link.active { color: var(--color-navy); font-weight: 600; }
+    .nav-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--color-navy); }
+    .nav-link:hover:not(.active) { color: var(--color-navy); }
+
+    .btn-primary { background: var(--color-navy); color: var(--bg-white); padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 14px; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--color-navy-dark); }
+    .btn-outline { background: var(--bg-white); color: var(--color-navy); border: 1px solid var(--border-color); padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 14px; transition: all 0.2s; }
+    .btn-outline:hover { border-color: var(--text-muted); }
+
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--color-navy); cursor: pointer; padding: 8px; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--bg-white); position: absolute; top: 72px; left: 0; width: 100%; border-bottom: 1px solid var(--border-color); padding: 16px 32px; box-shadow: var(--shadow-md); }
+    .mobile-menu.open { display: flex; gap: 16px; }
+
+    /* Hero Section */
+    .hero { background: var(--bg-white); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-badge { display: inline-block; background: var(--color-blue-light); color: var(--color-blue); padding: 6px 12px; border-radius: var(--radius-full); margin-bottom: 24px; }
+    .hero-title { font-size: 48px; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
+    .hero-title span { color: var(--color-navy); }
+    .hero-subtitle { font-size: 16px; margin-bottom: 32px; max-width: 480px; }
+    
+    .search-row { display: flex; align-items: center; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-full); padding: 6px; padding-left: 16px; box-shadow: var(--shadow-sm); margin-bottom: 12px; }
+    .search-input { border: none; outline: none; flex-grow: 1; font-size: 15px; padding: 8px; }
+    .search-helper { font-size: 13px; color: var(--text-muted); margin-left: 16px; }
+
+    .hero-content { flex: 1; max-width: 500px; padding-right: 32px; }
+    .hero-image-wrapper { flex: 1; position: relative; }
+    .hero-image { border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); width: 100%; object-fit: cover; object-position: center; aspect-ratio: 4/3; }
+    .hero-info-card { position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); width: 85%; background: var(--bg-white); border-radius: var(--radius-md); padding: 16px 20px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }
+    .info-row-1, .info-row-3 { display: flex; justify-content: space-between; align-items: center; }
+    .info-title { font-weight: 700; color: var(--text-main); font-size: 15px; }
+    .status-pill-green { background: var(--color-green-light); color: var(--color-green); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-full); }
+    .status-pill-red { background: var(--color-red-light); color: var(--color-red); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-full); }
+    .info-subtitle { font-size: 13px; color: var(--text-muted); }
+    .info-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 2px; }
+    .info-time { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1; }
+
+    /* Stats Row */
+    .stats-section { background: var(--bg-white); padding-bottom: 80px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .stat-card { display: flex; align-items: center; gap: 16px; padding: 24px; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+    .stat-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .icon-blue { background: var(--color-blue-lightest); color: var(--color-blue); }
+    .icon-green { background: var(--color-green-light); color: var(--color-green); }
+    .icon-yellow { background: var(--color-yellow-light); color: #D97706; }
+    .stat-val { font-size: 24px; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+    .stat-desc { font-size: 13px; color: var(--text-muted); }
+
+    /* Section Headers */
+    .section-label { color: var(--color-blue); margin-bottom: 12px; }
+    .section-title { font-size: 32px; margin-bottom: 16px; letter-spacing: -0.01em; }
+    .section-subtitle { font-size: 16px; max-width: 600px; margin: 0 auto 48px auto; }
+
+    /* How It Works */
+    .how-it-works { background: var(--bg-gray); }
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
+    .method-card { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px; display: flex; flex-direction: column; }
+    .method-badge { width: 40px; height: 40px; background: var(--color-blue-lightest); color: var(--color-navy); font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); margin-bottom: 20px; }
+    .method-title { font-size: 18px; margin-bottom: 12px; }
+    .method-desc { font-size: 14px; margin-bottom: 24px; flex-grow: 1; }
+    .method-divider { height: 1px; background: var(--border-color); margin-bottom: 16px; }
+    .method-link { color: var(--color-blue); font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+    
+    .flow-diagram { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; flex-wrap: wrap; }
+    .flow-pill { padding: 8px 16px; border-radius: var(--radius-full); border: 1px solid var(--border-color); background: var(--bg-white); font-size: 13px; font-weight: 500; }
+    .flow-pill.active-blue { background: var(--color-blue); color: var(--bg-white); border-color: var(--color-blue); }
+    .flow-pill.active-green { background: var(--color-green); color: var(--bg-white); border-color: var(--color-green); }
+    .flow-arrow { color: var(--text-muted); }
+
+    /* Journey Preview */
+    .journey { background: var(--bg-white); }
+    .journey-card { max-width: 800px; margin: 0 auto; background: var(--bg-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); border: 1px solid var(--border-color); overflow: hidden; }
+    .journey-header { background: var(--color-navy-dark); padding: 24px 32px; color: var(--bg-white); }
+    .j-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .j-title { font-size: 18px; font-weight: 700; }
+    .j-sub { color: #94A3B8; font-size: 13px; }
+    
+    .journey-body { padding: 32px; }
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 69px; top: 8px; bottom: 8px; width: 2px; background: var(--border-color); }
+    .timeline-item { display: flex; align-items: flex-start; gap: 24px; margin-bottom: 24px; position: relative; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .t-time { width: 45px; font-size: 14px; font-weight: 500; color: var(--text-body); text-align: right; padding-top: 2px; }
+    .t-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-color); position: relative; z-index: 2; margin-top: 6px; box-shadow: 0 0 0 4px var(--bg-white); }
+    .t-dot.green { background: var(--color-green); }
+    .t-dot.red { background: var(--color-red); }
+    .t-dot.gray { background: var(--text-muted); }
+    .t-content { flex-grow: 1; }
+    .t-station { font-weight: 600; color: var(--text-main); font-size: 15px; margin-bottom: 2px; }
+    .t-sub { font-size: 12px; color: var(--text-muted); }
+    .t-status { text-align: right; }
+    .t-status-time { font-weight: 700; color: var(--text-main); font-size: 15px; }
+    .t-status-text { font-size: 12px; font-weight: 500; }
+    .text-green { color: var(--color-green); }
+    .text-red { color: var(--color-red); }
+
+    .live-position-box { margin: 16px 0 32px 69px; background: var(--color-blue-lightest); border: 1px solid var(--color-blue-light); border-radius: var(--radius-sm); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+    .lp-left { display: flex; align-items: center; gap: 12px; }
+    .lp-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .lp-label { font-size: 11px; font-weight: 700; color: var(--color-blue); text-transform: uppercase; }
+    .lp-text { font-size: 13px; font-weight: 500; color: var(--text-main); }
+    .lp-speed { background: var(--bg-white); padding: 4px 8px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; color: var(--text-main); border: 1px solid var(--border-color); }
+
+    .journey-footer { padding: 16px 32px; background: var(--bg-gray); border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+    .legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-body); }
+    .legend-item span { margin-right: 4px; }
+
+    /* Advantages */
+    .advantages { background: var(--bg-gray); }
+
+    /* CTA Banner */
+    .cta { background: var(--color-navy); padding: 80px 0; text-align: center; color: var(--bg-white); }
+    .cta-title { font-size: 40px; margin-bottom: 16px; color: var(--bg-white); font-weight: 800; letter-spacing: -0.02em; }
+    .cta-sub { font-size: 18px; color: #94A3B8; max-width: 600px; margin: 0 auto 32px auto; line-height: 1.6; }
+    .btn-white { background: var(--bg-white); color: var(--color-navy); padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 15px; }
+
+    /* Stacking Scroll Effect */
+    @media (min-width: 768px) {
+      .stack-section {
+        position: sticky;
+        top: 96px; /* Below navbar */
+        height: calc(100vh - 96px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        transform-origin: center top;
+        will-change: transform, opacity;
+      }
+      .stack-section-1 { z-index: 10; }
+      .stack-section-2 { z-index: 20; }
+      .footer { position: relative; z-index: 30; }
+    }
+
+    /* Footer */
+    .footer { padding: 64px 0 32px 0; background: var(--bg-white); border-top: 1px solid var(--border-color); }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
+    .f-logo { height: 96px; width: auto; object-fit: contain; margin-bottom: 16px; display: block; margin-right: 0; }
+    .f-desc { font-size: 14px; color: var(--text-muted); max-width: 250px; }
+    .f-nav { display: flex; gap: 24px; }
+    .f-nav a { color: var(--text-body); font-weight: 500; font-size: 14px; }
+    .f-legal { display: flex; gap: 12px; color: var(--text-muted); font-size: 14px; }
+    
+    .footer-divider { height: 1px; background: var(--border-color); margin-bottom: 24px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
+
+    /* Media Queries */
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 36px; }
+      .hero-grid { gap: 32px; }
+      .method-grid, .stats-grid { gap: 16px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { height: 88px; }
+      .navbar .brand-logo { height: 64px; width: auto; margin-right: 24px; }
+      .section-padding { padding: 48px 0; }
+      .nav-links { display: none; }
+      .nav-right .btn-primary { display: none; }
+      .mobile-menu-btn { display: block; }
+      
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-title { font-size: 32px; }
+      .hero-info-card { width: 95%; padding: 12px 16px; }
+      
+      .stats-grid { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: 1fr; }
+      
+      .flow-diagram { flex-direction: column; gap: 8px; }
+      .flow-arrow { transform: rotate(90deg); }
+      
+      .journey-header { padding: 16px; }
+      .j-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .journey-body { padding: 16px; }
+      .timeline::before { left: 45px; }
+      .t-time { width: 35px; font-size: 12px; }
+      .live-position-box { margin-left: 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .journey-footer { flex-direction: column; gap: 16px; text-align: center; }
+      .legend { flex-wrap: wrap; justify-content: center; }
+      
+      .cta-title { font-size: 32px; }
+      
+      .footer-top { flex-direction: column; gap: 32px; text-align: center; align-items: center; }
+      .f-nav { justify-content: center; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    /* Splash Screen */
+    .splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #0F172A; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s ease; padding: 0 24px; box-sizing: border-box; }
+    .splash-logo-container { background-color: #FFFFFF; padding: clamp(24px, 4vw, 40px) clamp(32px, 5vw, 48px); border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 3vw, 32px); transition: transform 0.4s ease; max-width: 100%; box-sizing: border-box; }
+    .splash-logo { width: clamp(220px, 40vw, 420px); height: auto; object-fit: contain; }
+    .splash-loader { width: clamp(48px, 10vw, 80px); height: clamp(4px, 0.8vw, 6px); background: #E2E8F0; border-radius: 3px; overflow: hidden; position: relative; }
+    .splash-loader::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 50%; background: #2563EB; border-radius: 3px; animation: splash-loading 1s ease-in-out infinite alternate; }
+    @keyframes splash-loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+  </style>
 </head>
 <body>
-  Redirecting to <a href="home.html">Home</a>...
+
+  <!-- Splash Screen -->
+  <div id="aagman-splash" class="splash-screen" aria-hidden="true">
+    <div class="splash-logo-container">
+      <img src="/logo.jpg" alt="Aagman Logo" class="splash-logo">
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var navEntry = performance.getEntriesByType("navigation")[0];
+      var isReload = navEntry && navEntry.type === "reload";
+      if (sessionStorage.getItem('aagmanSplashShown') && !isReload) {
+        document.getElementById('aagman-splash').style.display = 'none';
+      }
+    })();
+  </script>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/">
+        <img src="/logo.jpg" alt="Aagman Logo" class="brand-logo">
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="livestatus.html" class="nav-link">Live Status</a>
+        <a href="help.html" class="nav-link">Help</a>
+      </div>
+      <div class="nav-right" style="display: flex; align-items: center; gap: 16px;">
+        <button class="btn-primary">Search Train</button>
+        <button class="mobile-menu-btn" id="menuBtn">☰</button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="home.html" class="nav-link active">Home</a>
+      <a href="livestatus.html" class="nav-link">Live Status</a>
+      <a href="help.html" class="nav-link">Help</a>
+      <button class="btn-primary" style="margin-top: 12px; text-align: center;">Search Train</button>
+    </div>
+  </nav>
+
+  <!-- Splash Screen Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const splash = document.getElementById("aagman-splash");
+      const logoContainer = splash.querySelector('.splash-logo-container');
+      if (!splash || splash.style.display === 'none') return;
+      
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        splash.style.opacity = '0';
+        logoContainer.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+          splash.style.display = 'none';
+          document.body.style.overflow = '';
+          sessionStorage.setItem('aagmanSplashShown', 'true');
+        }, 400); 
+      }, 2500); 
+    });
+  </script>
+
+  <!-- Script for scrolling interactions -->
+  <section class="hero section-padding">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge label-uppercase">● AI-Powered Train ETA Prediction</div>
+        <h1 class="hero-title">Know exactly when your train arrives — <span>every station, every time.</span></h1>
+        <p class="hero-subtitle">Real-time train tracking and AI-powered ETA predictions for a smoother journey across the Indian Railway network.</p>
+        
+        <div class="search-row">
+          <span style="padding: 0 8px;">🔍</span>
+          <input type="text" class="search-input" placeholder="12951 — Mumbai Rajdhani">
+          <button class="btn-primary">Search Train</button>
+        </div>
+        <p class="search-helper">Example: 12951 Mumbai Rajdhani, 22436 Vande Bharat</p>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="hero-image-wrapper">
+          <img src="/train-hero.jpg" alt="Train passing through mountains" class="hero-image">
+          <div class="hero-info-card">
+            <div class="info-row-1">
+              <span class="info-title">12951 — Mumbai Rajdhani</span>
+              <span class="status-pill-green">● Running</span>
+            </div>
+            <div class="info-row-2 info-subtitle">New Delhi → Mumbai Central</div>
+            <div class="info-row-3" style="margin-top: 4px;">
+              <div>
+                <div class="info-label">Expected arrival</div>
+                <div class="info-time">16:17</div>
+              </div>
+              <span class="status-pill-red">Delayed by 12 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Row -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon icon-blue">⚓</div>
+        <div>
+          <div class="stat-val">100+</div>
+          <div class="stat-desc">Trains tracked daily</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon icon-green">📊</div>
+        <div>
+          <div class="stat-val">96%</div>
+          <div class="stat-desc">Prediction accuracy</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon icon-yellow">⏱</div>
+        <div>
+          <div class="stat-val">Real-time</div>
+          <div class="stat-desc">Train position updates</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works section-padding text-center">
+    <div class="container">
+      <div class="section-label label-uppercase">Methodology</div>
+      <h2 class="section-title">How Aagman works</h2>
+      <p class="section-subtitle">Combining historical patterns with live railway data to provide smarter ETA predictions.</p>
+      
+      <div class="method-grid text-left" style="text-align: left;">
+        <div class="method-card">
+          <div class="method-badge">01</div>
+          <h3 class="method-title">Historical Patterns</h3>
+          <p class="method-desc">Learns from millions of past train journeys, seasonal congestion, and station-wise delay tendencies over years of aggregated data.</p>
+          <div class="method-divider"></div>
+          <a href="#" class="method-link">Station Congestion Models →</a>
+        </div>
+        <div class="method-card">
+          <div class="method-badge">02</div>
+          <h3 class="method-title">Live Signals</h3>
+          <p class="method-desc">Analyzes instantaneous GPS positioning, track section clearance, current throttle speed, weather conditions, and signal holds.</p>
+          <div class="method-divider"></div>
+          <a href="#" class="method-link">Real-Time Dynamic Telemetry →</a>
+        </div>
+        <div class="method-card">
+          <div class="method-badge">03</div>
+          <h3 class="method-title">Smart ETA</h3>
+          <p class="method-desc">Synthesizes historical trends with active telemetry using neural networks to continuously calculate and adjust platform arrival times.</p>
+          <div class="method-divider"></div>
+          <a href="#" class="method-link">High Accuracy Predictions →</a>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-pill">Historical Data</div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-pill">Live Signals</div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-pill active-blue">Aagman AI Model</div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-pill active-green">Predicted ETA</div>
+      </div>
+
+      <button class="btn-outline">Learn how it works ›</button>
+    </div>
+  </section>
+
+  <!-- Journey Preview -->
+  <section class="journey section-padding">
+    <div class="container">
+      <div class="text-center">
+        <div class="section-label label-uppercase">Real-Time Experience</div>
+        <h2 class="section-title">See your train's journey at a glance</h2>
+        <p class="section-subtitle">Interactive station timeline preview with precision ETA and delay alerts</p>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-header">
+          <div class="j-header-row">
+            <span class="j-title">12951 — Mumbai Rajdhani</span>
+            <span class="status-pill-green" style="background: rgba(22, 163, 74, 0.2); color: #4ADE80;">● Active</span>
+          </div>
+          <div class="j-header-row j-sub">
+            <span>New Delhi → Mumbai Central</span>
+            <span>Telemetry Sync / Updated 30s ago via GPS</span>
+          </div>
+        </div>
+        
+        <div class="journey-body">
+          <div class="timeline">
+            <!-- Stop 1 -->
+            <div class="timeline-item">
+              <div class="t-time">12:10</div>
+              <div class="t-dot green"></div>
+              <div class="t-content">
+                <div class="t-station">New Delhi</div>
+                <div class="t-sub">Historical avg 2 min late here</div>
+              </div>
+              <div class="t-status">
+                <div class="t-status-time">12:08</div>
+                <div class="t-status-text text-green">On time</div>
+              </div>
+            </div>
+            
+            <!-- Stop 2 -->
+            <div class="timeline-item">
+              <div class="t-time">14:32</div>
+              <div class="t-dot green"></div>
+              <div class="t-content">
+                <div class="t-station">Kota Junction</div>
+                <div class="t-sub">Historical avg 3 min late here</div>
+              </div>
+              <div class="t-status">
+                <div class="t-status-time">14:32</div>
+                <div class="t-status-text text-green">On time</div>
+              </div>
+            </div>
+
+            <!-- Live Position -->
+            <div class="live-position-box">
+              <div class="lp-left">
+                <span style="font-size: 20px;">🚆</span>
+                <div>
+                  <div class="lp-title-row">
+                    <span class="lp-label">Live Position</span>
+                    <span class="status-pill-red" style="font-size: 10px; padding: 2px 6px;">Weather delay</span>
+                  </div>
+                  <div class="lp-text">Train is between Ratlam Jn. and Vadodara Jn.</div>
+                </div>
+              </div>
+              <div class="lp-speed">Speed: 112 km/h</div>
+            </div>
+
+            <!-- Stop 3 -->
+            <div class="timeline-item">
+              <div class="t-time">16:05</div>
+              <div class="t-dot red"></div>
+              <div class="t-content">
+                <div class="t-station">Ratlam Junction</div>
+                <div class="t-sub">Historical avg 9 min late here</div>
+              </div>
+              <div class="t-status">
+                <div class="t-status-time">16:17</div>
+                <div class="t-status-text text-red">Delayed 12 min</div>
+              </div>
+            </div>
+
+            <!-- Stop 4 -->
+            <div class="timeline-item">
+              <div class="t-time">18:47</div>
+              <div class="t-dot red"></div>
+              <div class="t-content">
+                <div class="t-station">Vadodara Jn.</div>
+                <div class="t-sub">Historical avg 6 min late here</div>
+              </div>
+              <div class="t-status">
+                <div class="t-status-time">18:52</div>
+                <div class="t-status-text text-red">Delayed 5 min</div>
+              </div>
+            </div>
+
+            <!-- Stop 5 -->
+            <div class="timeline-item">
+              <div class="t-time">20:58</div>
+              <div class="t-dot red"></div>
+              <div class="t-content">
+                <div class="t-station">Borivali</div>
+                <div class="t-sub">Historical avg 14 min late here</div>
+              </div>
+              <div class="t-status">
+                <div class="t-status-time">21:16</div>
+                <div class="t-status-text text-red">Delayed 18 min</div>
+              </div>
+            </div>
+
+            <!-- Stop 6 -->
+            <div class="timeline-item">
+              <div class="t-time">22:40</div>
+              <div class="t-dot gray"></div>
+              <div class="t-content">
+                <div class="t-station">Mumbai Central</div>
+                <div class="t-sub">Final destination</div>
+              </div>
+              <div class="t-status">
+                <div class="t-status-time" style="color: var(--text-muted);">22:40</div>
+                <div class="t-status-text" style="color: var(--text-muted);">Scheduled</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="journey-footer">
+          <div class="legend">
+            <div class="legend-item"><span style="color: var(--color-green);">●</span> Passed Station</div>
+            <div class="legend-item"><span style="color: var(--color-red);">●</span> Delayed Stop</div>
+            <div class="legend-item"><span style="color: var(--text-muted);">●</span> Upcoming</div>
+          </div>
+          <button class="btn-primary">View Live Status</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advantages -->
+  <section class="how-it-works advantages section-padding text-center stack-section stack-section-1">
+    <div class="container">
+      <div class="section-label label-uppercase">Advantages</div>
+      <h2 class="section-title">Why Choose Aagman</h2>
+      <p class="section-subtitle">Engineering precision into every rail journey</p>
+      
+      <div class="method-grid text-left" style="text-align: left; margin-bottom: 0;">
+        <div class="method-card">
+          <div class="stat-icon icon-blue" style="margin-bottom: 16px;">🎯</div>
+          <h3 class="method-title">Accurate</h3>
+          <p class="method-desc" style="margin-bottom: 0;">Station-wise predicted arrival times tailored to real rail circumstances instead of static timetables.</p>
+        </div>
+        <div class="method-card">
+          <div class="stat-icon icon-blue" style="margin-bottom: 16px;">⚡</div>
+          <h3 class="method-title">Real-time</h3>
+          <p class="method-desc" style="margin-bottom: 0;">Continuously updated train position powered by live GPS signals and track telemetry stream.</p>
+        </div>
+        <div class="method-card">
+          <div class="stat-icon icon-blue" style="margin-bottom: 16px;">🧠</div>
+          <h3 class="method-title">Intelligent</h3>
+          <p class="method-desc" style="margin-bottom: 0;">Prediction based on historical and live factors including weather delays, speed bottlenecks, and junction clearance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta stack-section stack-section-2">
+    <div class="container">
+      <h2 class="cta-title">Smarter train travel for a connected India.</h2>
+      <p class="cta-sub">Get real-time train updates and intelligent arrival predictions before stepping onto the platform.</p>
+      <button class="btn-white">Check Live Status</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="home.html"><img src="/logo.jpg" alt="Aagman Logo" class="brand-logo f-logo"></a>
+          <p class="f-desc">Real-time insights. Smoother journeys. A more connected India.</p>
+        </div>
+        <div class="f-nav">
+          <a href="home.html">Home</a>
+          <a href="livestatus.html">Live Status</a>
+          <a href="help.html">Help</a>
+        </div>
+        <div class="f-legal">
+          <a href="#">Privacy</a> • <a href="#">Terms</a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <div>© 2026 Aagman Railway ETA Systems. All rights reserved.</div>
+        <div>Built for Indian Railways passengers with precision intelligence.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      menuBtn.innerHTML = mobileMenu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Stacking Scroll Effect
+    document.addEventListener("DOMContentLoaded", () => {
+      const stackSections = document.querySelectorAll('.stack-section');
+      const footer = document.querySelector('.footer');
+      const elementsToTrack = [...stackSections, footer];
+
+      window.addEventListener('scroll', () => {
+        if (window.innerWidth < 768) {
+          stackSections.forEach(sec => {
+            sec.style.transform = 'none';
+            sec.style.opacity = '1';
+          });
+          return;
+        }
+
+        stackSections.forEach((sec, index) => {
+          const nextEl = elementsToTrack[index + 1];
+          if (nextEl) {
+            const nextRect = nextEl.getBoundingClientRect();
+            const thisRect = sec.getBoundingClientRect();
+            
+            // Calculate how much the next element overlays this section
+            const overlap = thisRect.bottom - nextRect.top;
+            if (overlap > 0) {
+              // Calculate progress from 0 to 1
+              const progress = Math.min(overlap / thisRect.height, 1);
+              const scale = 1 - (0.04 * progress);
+              const opacity = 1 - (0.15 * progress);
+              sec.style.transform = `scale(${scale})`;
+              sec.style.opacity = opacity.toFixed(3);
+            } else {
+              sec.style.transform = `scale(1)`;
+              sec.style.opacity = '1';
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
